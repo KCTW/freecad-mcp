@@ -364,24 +364,36 @@ class FreeCADRPC:
             return None
             
         # If view supports screenshots, proceed with capture
-        fd, tmp_path = tempfile.mkstemp(suffix=".png")
-        os.close(fd)
+        # Save to a persistent screenshots directory instead of temp
+        import time
+        screenshot_dir = os.path.join(os.path.expanduser("~"), ".freecad-mcp", "screenshots")
+        os.makedirs(screenshot_dir, exist_ok=True)
+
+        # Auto-cleanup: keep only the latest N screenshots
+        MAX_SCREENSHOTS = 5
+        existing = sorted(
+            [f for f in os.listdir(screenshot_dir) if f.endswith(".png")],
+            key=lambda f: os.path.getmtime(os.path.join(screenshot_dir, f)),
+        )
+        # Delete oldest files, keeping room for the new one
+        while len(existing) >= MAX_SCREENSHOTS:
+            try:
+                os.remove(os.path.join(screenshot_dir, existing.pop(0)))
+            except OSError:
+                pass
+
+        screenshot_path = os.path.join(screenshot_dir, f"screenshot_{int(time.time() * 1000)}.png")
+
         rpc_request_queue.put(
-            lambda: self._save_active_screenshot(tmp_path, view_name, width, height, focus_object)
+            lambda: self._save_active_screenshot(screenshot_path, view_name, width, height, focus_object)
         )
         res = rpc_response_queue.get()
         if res is True:
-            try:
-                with open(tmp_path, "rb") as image_file:
-                    image_bytes = image_file.read()
-                    encoded = base64.b64encode(image_bytes).decode("utf-8")
-            finally:
-                if os.path.exists(tmp_path):
-                    os.remove(tmp_path)
-            return encoded
+            FreeCAD.Console.PrintMessage(f"Screenshot saved to: {screenshot_path}\n")
+            return screenshot_path
         else:
-            if os.path.exists(tmp_path):
-                os.remove(tmp_path)
+            if os.path.exists(screenshot_path):
+                os.remove(screenshot_path)
             FreeCAD.Console.PrintWarning(f"Failed to capture screenshot: {res}\n")
             return None
 

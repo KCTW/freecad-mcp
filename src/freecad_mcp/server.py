@@ -141,13 +141,20 @@ def get_freecad_connection():
 
 # Helper function to safely add screenshot to response
 def add_screenshot_if_available(response, screenshot):
-    """Safely add screenshot to response only if it's available"""
+    """Safely add screenshot file path to response only if it's available.
+
+    Instead of returning base64-encoded image data (which can be very large
+    and exceed token limits), we return the file path where the screenshot
+    is saved. The AI model can then reference this path if needed.
+    """
     if screenshot is not None and not _only_text_feedback:
-        response.append(ImageContent(type="image", data=screenshot, mimeType="image/png"))
-    elif not _only_text_feedback:
-        # Add an informative message that will be seen by the AI model and user
         response.append(TextContent(
-            type="text", 
+            type="text",
+            text=f"Screenshot saved to: {screenshot}"
+        ))
+    elif not _only_text_feedback:
+        response.append(TextContent(
+            type="text",
             text="Note: Visual preview is unavailable in the current view type (such as TechDraw or Spreadsheet). "
                  "Switch to a 3D view to see visual feedback."
         ))
@@ -464,9 +471,9 @@ def get_view(ctx: Context, view_name: Literal["Isometric", "Front", "Top", "Righ
     """
     freecad = get_freecad_connection()
     screenshot = freecad.get_active_screenshot(view_name, width, height, focus_object)
-    
+
     if screenshot is not None:
-        return [ImageContent(type="image", data=screenshot, mimeType="image/png")]
+        return [TextContent(type="text", text=f"Screenshot saved to: {screenshot}")]
     else:
         return [TextContent(type="text", text="Cannot get screenshot in the current view type (such as TechDraw or Spreadsheet)")]
 
