@@ -1,126 +1,126 @@
-# FreeCAD MCP User Guide
+# FreeCAD MCP 使用指南
 
-Complete guide to using FreeCAD MCP with Claude Desktop.
+使用 Claude Desktop 操作 FreeCAD MCP 的完整指南。
 
-## Table of Contents
+## 目錄
 
-1. [Introduction](#introduction)
-2. [Getting Started](#getting-started)
-3. [Basic Workflow](#basic-workflow)
-4. [Advanced Features](#advanced-features)
-5. [Assembly Workflow](#assembly-workflow)
-6. [Best Practices](#best-practices)
-7. [Troubleshooting](#troubleshooting)
+1. [簡介](#簡介)
+2. [開始使用](#開始使用)
+3. [基本工作流程](#基本工作流程)
+4. [進階功能](#進階功能)
+5. [組裝工作流程](#組裝工作流程)
+6. [最佳實踐](#最佳實踐)
+7. [疑難排解](#疑難排解)
 
 ---
 
-## Introduction
+## 簡介
 
-FreeCAD MCP enables you to control FreeCAD through Claude Desktop using natural language. Instead of learning complex CAD interfaces, simply describe what you want to create, and Claude will generate the appropriate FreeCAD commands.
+FreeCAD MCP 讓您能夠透過 Claude Desktop 以自然語言控制 FreeCAD。無需學習複雜的 CAD 介面，只需描述您想建立的內容，Claude 就會產生對應的 FreeCAD 指令。
 
-### What You Can Do
+### 功能概覽
 
-- 📦 Create parametric 3D objects
-- ✏️ Design with sketches and extrusions
-- 🔧 Apply Boolean operations (union, cut, intersection)
-- 🎨 Add finishing touches (fillets, chamfers, shells)
-- 🔄 Transform and pattern objects
-- 🏗️ Build assemblies with constraints
-- ✈️ Design complex projects like aircraft
+- 📦 建立參數化 3D 物件
+- ✏️ 使用草圖與擠出進行設計
+- 🔧 套用布林運算（聯集、差集、交集）
+- 🎨 加入細節修飾（圓角、倒角、薄殼）
+- 🔄 變換與陣列複製物件
+- 🏗️ 使用約束建立組裝件
+- ✈️ 設計複雜專案，如飛機
 
-### System Architecture
+### 系統架構
 
 ```
-Claude Desktop (User Interface)
-    ↓ Natural Language
+Claude Desktop (使用者介面)
+    ↓ 自然語言
 Model Context Protocol (MCP)
     ↓ Tool Calls
 FreeCAD MCP Server
     ↓ XML-RPC
-FreeCAD (CAD Engine)
+FreeCAD (CAD 引擎)
 ```
 
 ---
 
-## Getting Started
+## 開始使用
 
-### Prerequisites
+### 先決條件
 
-Before starting, ensure you have:
-- ✅ FreeCAD 0.21+ installed
-- ✅ Python 3.10+ installed
-- ✅ Claude Desktop installed
-- ✅ FreeCAD MCP addon installed
-- ✅ Claude Desktop configured
+開始之前，請確認您已安裝：
+- ✅ FreeCAD 0.21+ 已安裝
+- ✅ Python 3.10+ 已安裝
+- ✅ Claude Desktop 已安裝
+- ✅ FreeCAD MCP 附加元件已安裝
+- ✅ Claude Desktop 已完成設定
 
-See [Quick Start Guide](QUICKSTART.md) for installation instructions.
+安裝說明請參閱[快速入門指南](QUICKSTART.md)。
 
-### First Steps
+### 第一步
 
-1. **Launch FreeCAD**
-   - Open FreeCAD
-   - Select "MCP Addon" workbench
-   - Click "Start RPC Server"
+1. **啟動 FreeCAD**
+   - 開啟 FreeCAD
+   - 選擇「MCP Addon」工作台
+   - 點擊「Start RPC Server」
 
-2. **Open Claude Desktop**
-   - You should see "freecad" in available tools
-   - If not, restart Claude Desktop
+2. **開啟 Claude Desktop**
+   - 您應該會在可用工具中看到「freecad」
+   - 若未顯示，請重新啟動 Claude Desktop
 
-3. **Try a Simple Command**
+3. **嘗試簡單指令**
    ```
    "Create a box 100mm x 50mm x 30mm"
    ```
 
-4. **Check FreeCAD**
-   - You should see the box created
-   - Screenshot should appear in Claude
+4. **檢查 FreeCAD**
+   - 您應該會看到已建立的方塊
+   - 截圖應會顯示在 Claude 中
 
 ---
 
-## Basic Workflow
+## 基本工作流程
 
-### Creating Simple Shapes
+### 建立簡單形狀
 
-#### Box
+#### 方塊
 ```
 "Create a rectangular box 100mm long, 50mm wide, 30mm high"
 ```
 
-#### Cylinder
+#### 圓柱
 ```
 "Create a cylinder with radius 20mm and height 50mm"
 ```
 
-#### Sphere
+#### 球體
 ```
 "Create a sphere with radius 30mm"
 ```
 
-### Positioning Objects
+### 定位物件
 
-#### Absolute Position
+#### 絕對位置
 ```
 "Move Box001 to position x=100, y=50, z=0"
 ```
 
-#### Relative Movement
+#### 相對移動
 ```
 "Move Cylinder001 10mm in the positive X direction"
 ```
 
-### Modifying Objects
+### 修改物件
 
-#### Change Dimensions
+#### 變更尺寸
 ```
 "Change the height of Cylinder001 to 75mm"
 ```
 
-#### Change Color
+#### 變更顏色
 ```
 "Make Box001 red"
 ```
 
-### Deleting Objects
+### 刪除物件
 
 ```
 "Delete Cylinder001"
@@ -128,35 +128,35 @@ See [Quick Start Guide](QUICKSTART.md) for installation instructions.
 
 ---
 
-## Advanced Features
+## 進階功能
 
-### Sketch-Based Modeling
+### 基於草圖的建模
 
-This is the professional workflow for creating complex parts.
+這是建立複雜零件的專業工作流程。
 
-#### Step 1: Create Datum Plane
+#### 步驟一：建立基準平面
 
 ```
 "Create a datum plane aligned with XY at the origin"
 ```
 
-**Result:** Creates `base_plane` (Body with Origin)
+**結果：** 建立 `base_plane`（含有原點的 Body）
 
-#### Step 2: Create Sketch
+#### 步驟二：建立草圖
 
 ```
 "Create a sketch on base_plane"
 ```
 
-**Result:** Creates `base_plane_sketch`
+**結果：** 建立 `base_plane_sketch`
 
-#### Step 3: Add Geometry
+#### 步驟三：加入幾何圖形
 
 ```
 "Add a rectangle 100mm x 50mm to the sketch, starting at origin"
 ```
 
-**Details:**
+**詳細資料：**
 ```json
 {
   "geometry_elements": [
@@ -168,296 +168,296 @@ This is the professional workflow for creating complex parts.
 }
 ```
 
-#### Step 4: Extrude
+#### 步驟四：擠出
 
 ```
 "Extrude base_plane_sketch 20mm"
 ```
 
-**Result:** Creates `base_plane_solid`
+**結果：** 建立 `base_plane_solid`
 
-### Boolean Operations
+### 布林運算
 
-#### Union (Fuse)
+#### 聯集（融合）
 
-Combine multiple solids into one.
+將多個實體合併為一個。
 
 ```
 "Fuse Box001 and Cylinder001 together"
 ```
 
-**Use Case:** Combining parts into single body
+**使用情境：** 將零件合併為單一實體
 
-#### Cut (Subtract)
+#### 差集（減去）
 
-Remove one solid from another.
+從一個實體中移除另一個實體。
 
 ```
 "Cut Cylinder001 from Box001 to create a hole"
 ```
 
-**Use Case:** Creating holes, pockets, cutouts
+**使用情境：** 建立孔洞、凹槽、切口
 
-#### Intersection
+#### 交集
 
-Keep only overlapping volume.
+僅保留重疊的部分。
 
 ```
 "Find the intersection between Sphere001 and Box001"
 ```
 
-**Use Case:** Complex shape creation
+**使用情境：** 建立複雜形狀
 
-### Finishing Operations
+### 修飾操作
 
-#### Fillets (Rounded Edges)
+#### 圓角（圓滑邊緣）
 
 ```
 "Add a 5mm fillet to edges 1, 2, and 5 of Box001"
 ```
 
-**Use Case:** Professional appearance, stress reduction
+**使用情境：** 專業外觀、減少應力集中
 
-#### Chamfers (Beveled Edges)
+#### 倒角（斜切邊緣）
 
 ```
 "Add a 2mm chamfer to edge 3 of Box001"
 ```
 
-**Use Case:** Sharp edge removal, assembly clearance
+**使用情境：** 去除銳邊、組裝間隙
 
-#### Shell (Hollow Out)
+#### 薄殼（挖空）
 
 ```
 "Create a hollow shell from Box001 with 2mm wall thickness, removing the top face"
 ```
 
-**Use Case:** Enclosures, containers, lightweight parts
+**使用情境：** 外殼、容器、輕量化零件
 
-### Transformations & Patterns
+### 變換與陣列
 
-#### Mirror
+#### 鏡像
 
-Create symmetric parts instantly.
+即時建立對稱零件。
 
 ```
 "Mirror Wing across the YZ plane and merge with original"
 ```
 
-**Productivity:** 60% time saving for symmetric designs
+**生產力：** 對稱設計可節省 60% 的時間
 
-#### Circular Pattern
+#### 環形陣列
 
-Create radial arrays.
+建立徑向排列。
 
 ```
 "Create a circular pattern of Cylinder001, 18 copies around the Z axis"
 ```
 
-**Use Case:** Radial engines, bolt patterns, gears
+**使用情境：** 星型引擎、螺栓排列、齒輪
 
-#### Linear Pattern
+#### 線性陣列
 
-Create rectangular arrays.
+建立矩形排列。
 
 ```
 "Create a linear pattern of Hole001, 5 copies spaced 50mm apart in X direction"
 ```
 
-**Use Case:** Repeated features, bolt holes, ventilation
+**使用情境：** 重複特徵、螺栓孔、通風口
 
-### Advanced Modeling
+### 進階建模
 
-#### Loft
+#### 放樣
 
-Create organic shapes between profiles.
+在多個輪廓之間建立有機形狀。
 
 ```
 "Create a loft between Profile1, Profile2, and Profile3"
 ```
 
-**Use Case:** Aircraft fuselages, boat hulls, bottles
+**使用情境：** 飛機機身、船體、瓶子
 
-#### Revolve
+#### 旋轉
 
-Create rotational parts.
+建立旋轉體零件。
 
 ```
 "Revolve Profile001 360 degrees around the Z axis"
 ```
 
-**Use Case:** Bottles, shafts, pulleys, bowls
+**使用情境：** 瓶子、軸、滑輪、碗
 
-#### Sweep
+#### 掃掠
 
-Sweep profile along path.
+沿路徑掃掠輪廓。
 
 ```
 "Sweep Circle001 along Spline001"
 ```
 
-**Use Case:** Pipes, cables, handrails
+**使用情境：** 管道、纜線、扶手
 
-### Reference Geometry
+### 參考幾何
 
-#### Custom Planes
+#### 自訂平面
 
 ```
 "Create a plane at Z=100 with normal tilted 10 degrees"
 ```
 
-**Use Case:** Angled features, complex assemblies
+**使用情境：** 斜角特徵、複雜組裝
 
-#### NACA Airfoil Profiles
+#### NACA 翼型輪廓
 
 ```
 "Import NACA 2412 airfoil with 2000mm chord length"
 ```
 
-**Use Case:** Aircraft wings, turbine blades, boat keels
+**使用情境：** 飛機機翼、渦輪葉片、船龍骨
 
-#### DXF Import
+#### DXF 匯入
 
 ```
 "Import the DXF file from C:/drawings/part.dxf as a sketch"
 ```
 
-**Use Case:** Professional CAD workflow integration
+**使用情境：** 專業 CAD 工作流程整合
 
 ---
 
-## Assembly Workflow
+## 組裝工作流程
 
-### Assembly3 (Constraint-Based)
+### Assembly3（基於約束）
 
-Automatic positioning based on constraints.
+根據約束自動定位。
 
-#### Step 1: Create Assembly
+#### 步驟一：建立組裝
 
 ```
 "Create an Assembly3 container named MainAssembly"
 ```
 
-#### Step 2: Add Parts
+#### 步驟二：加入零件
 
 ```
 "Add Box001 to MainAssembly"
 "Add Cylinder001 to MainAssembly"
 ```
 
-#### Step 3: Add Constraints
+#### 步驟三：加入約束
 
 ```
 "Add a PlaneCoincident constraint between Face6 of Box001 and Face1 of Cylinder001"
 ```
 
-#### Step 4: Solve
+#### 步驟四：求解
 
 ```
 "Solve the assembly constraints"
 ```
 
-**Result:** Parts automatically position themselves
+**結果：** 零件自動定位至正確位置
 
-### Assembly4 (LCS-Based)
+### Assembly4（基於 LCS）
 
-Manual positioning using coordinate systems.
+使用座標系統進行手動定位。
 
-#### Step 1: Create Assembly
+#### 步驟一：建立組裝
 
 ```
 "Create an Assembly4 container named MainAssembly"
 ```
 
-#### Step 2: Create LCS
+#### 步驟二：建立 LCS
 
 ```
 "Create an LCS named LCS_Base at origin in MainAssembly"
 ```
 
-#### Step 3: Insert Parts
+#### 步驟三：插入零件
 
 ```
 "Insert part from C:/parts/base.FCStd into MainAssembly, attach to LCS_Base"
 ```
 
-### Bill of Materials
+### 材料清單
 
 ```
 "Generate a BOM for MainAssembly in markdown format"
 ```
 
-**Result:** Table with part counts, masses, materials
+**結果：** 包含零件數量、質量、材料的表格
 
 ---
 
-## Best Practices
+## 最佳實踐
 
-### 1. Planning
+### 1. 規劃
 
-**Before starting:**
-- Sketch the design on paper
-- Break down into components
-- Identify symmetric features
-- Plan assembly structure
+**開始之前：**
+- 在紙上畫出設計草圖
+- 將設計分解為元件
+- 找出對稱特徵
+- 規劃組裝結構
 
-### 2. Naming Conventions
+### 2. 命名慣例
 
-**Use descriptive names:**
+**使用描述性名稱：**
 - ✅ `fuselage_main_body`
 - ✅ `wing_left_outer`
 - ❌ `Pad001`
 - ❌ `Cut042`
 
-### 3. Progressive Complexity
+### 3. 漸進式複雜度
 
-**Build incrementally:**
-1. Start with simple shapes
-2. Test basic operations
-3. Add details gradually
-4. Save frequently
+**逐步建立：**
+1. 從簡單形狀開始
+2. 測試基本操作
+3. 逐步加入細節
+4. 經常儲存
 
-### 4. Leverage Symmetry
+### 4. 善用對稱
 
-**Use mirror for symmetric parts:**
+**對稱零件使用鏡像：**
 ```
 "Create the right wing, then mirror it to create both wings"
 ```
-**Saves 50%+ time**
+**可節省 50% 以上的時間**
 
-### 5. Use Patterns
+### 5. 使用陣列
 
-**Use patterns for repeated features:**
+**重複特徵使用陣列：**
 ```
 "Create one bolt hole, then use circular pattern for 6 holes"
 ```
-**Much faster than individual holes**
+**比逐一建立孔洞快得多**
 
-### 6. Document As You Go
+### 6. 隨時記錄
 
-**In Claude, describe your steps:**
+**在 Claude 中描述您的步驟：**
 ```
 "Create fuselage base (will be 4000mm long, elliptical cross-section)"
 ```
 
-### 7. Save Incrementally
+### 7. 增量儲存
 
-**In FreeCAD:**
-- File > Save As > `project_v1.FCStd`
-- Make changes
-- File > Save As > `project_v2.FCStd`
+**在 FreeCAD 中：**
+- 檔案 > 另存新檔 > `project_v1.FCStd`
+- 進行修改
+- 檔案 > 另存新檔 > `project_v2.FCStd`
 
-### 8. Verify Dimensions
+### 8. 驗證尺寸
 
-**Check with screenshots:**
+**使用截圖檢查：**
 ```
 "Show me the top view"
 "Show me the dimensions of Box001"
 ```
 
-### 9. Organize Complex Projects
+### 9. 組織複雜專案
 
-**Use hierarchy:**
+**使用層級結構：**
 ```
 Assembly
 ├── Fuselage
@@ -470,114 +470,114 @@ Assembly
 └── Empennage
 ```
 
-### 10. Test Before Complex Operations
+### 10. 進行複雜操作前先測試
 
-**Try operations on simple geometry first:**
+**先在簡單幾何上嘗試操作：**
 ```
 "Create a test box and try the fillet operation before applying to main part"
 ```
 
 ---
 
-## Troubleshooting
+## 疑難排解
 
-### Common Issues
+### 常見問題
 
-#### Issue: Claude doesn't see FreeCAD tools
+#### 問題：Claude 看不到 FreeCAD 工具
 
-**Symptoms:**
-- Claude says "I don't have access to FreeCAD"
-- No tools available
+**症狀：**
+- Claude 顯示「I don't have access to FreeCAD」
+- 沒有可用工具
 
-**Solutions:**
-1. Restart Claude Desktop
-2. Check `claude_desktop_config.json` syntax
-3. Verify FreeCAD RPC server running
-4. Check Claude Desktop logs
+**解決方案：**
+1. 重新啟動 Claude Desktop
+2. 檢查 `claude_desktop_config.json` 語法
+3. 確認 FreeCAD RPC 伺服器正在執行
+4. 檢查 Claude Desktop 日誌
 
-#### Issue: Connection Refused
+#### 問題：連線被拒絕
 
-**Symptoms:**
-- Error: "Connection refused to localhost:9875"
-- Tools fail to execute
+**症狀：**
+- 錯誤：「Connection refused to localhost:9875」
+- 工具無法執行
 
-**Solutions:**
-1. Launch FreeCAD
-2. Select "MCP Addon" workbench
-3. Click "Start RPC Server"
-4. Verify green indicator
-5. Check firewall settings
+**解決方案：**
+1. 啟動 FreeCAD
+2. 選擇「MCP Addon」工作台
+3. 點擊「Start RPC Server」
+4. 確認綠色指示燈亮起
+5. 檢查防火牆設定
 
-#### Issue: No Screenshot
+#### 問題：沒有截圖
 
-**Symptoms:**
-- Operations succeed but no image
-- "Screenshot unavailable" message
+**症狀：**
+- 操作成功但無圖片
+- 顯示「Screenshot unavailable」訊息
 
-**Solutions:**
-1. Switch to 3D view (not TechDraw/Spreadsheet)
-2. Use `--only-text-feedback` if screenshots not needed
-3. Check FreeCAD active document has 3D view
+**解決方案：**
+1. 切換至 3D 視圖（非 TechDraw/Spreadsheet）
+2. 若不需要截圖，使用 `--only-text-feedback`
+3. 確認 FreeCAD 活動文件具有 3D 視圖
 
-#### Issue: Object Not Found
+#### 問題：找不到物件
 
-**Symptoms:**
-- Error: "Object 'Box001' not found"
+**症狀：**
+- 錯誤：「Object 'Box001' not found」
 
-**Solutions:**
-1. List objects: `"Show me all objects in the document"`
-2. Verify object name spelling
-3. Check correct document is active
-4. Refresh with `get_objects`
+**解決方案：**
+1. 列出物件：`"Show me all objects in the document"`
+2. 確認物件名稱拼寫正確
+3. 檢查正確的文件是否為活動狀態
+4. 使用 `get_objects` 重新整理
 
-#### Issue: Boolean Operation Fails
+#### 問題：布林運算失敗
 
-**Symptoms:**
-- Error during union/cut/intersection
-- Invalid result
+**症狀：**
+- 聯集/差集/交集時發生錯誤
+- 結果無效
 
-**Solutions:**
-1. Verify objects are valid solids
-2. Check objects actually overlap
-3. Try `execute_code` to check geometry
-4. Simplify geometry if complex
+**解決方案：**
+1. 確認物件是有效的實體
+2. 檢查物件是否確實重疊
+3. 嘗試使用 `execute_code` 檢查幾何
+4. 若幾何複雜，嘗試簡化
 
-#### Issue: Assembly Constraints Not Solving
+#### 問題：組裝約束無法求解
 
-**Symptoms:**
-- Constraints added but parts don't move
-- Solver error
+**症狀：**
+- 已加入約束但零件不移動
+- 求解器錯誤
 
-**Solutions:**
-1. Check constraint types are appropriate
-2. Verify references (faces/edges) exist
-3. Check for conflicting constraints
-4. Try Assembly4 LCS-based approach instead
+**解決方案：**
+1. 檢查約束類型是否適當
+2. 確認參考（面/邊）存在
+3. 檢查是否有衝突的約束
+4. 嘗試改用 Assembly4 的 LCS 方式
 
-### Getting Help
+### 取得幫助
 
-1. **Check Documentation**
-   - [API Reference](API_REFERENCE.md)
-   - [Quick Start](QUICKSTART.md)
-   - [Corsair Workflow](CORSAIR_MODELING_WORKFLOW.md)
+1. **查閱文件**
+   - [API 參考](API_REFERENCE.md)
+   - [快速入門](QUICKSTART.md)
+   - [Corsair 工作流程](CORSAIR_MODELING_WORKFLOW.md)
 
-2. **FreeCAD Console**
-   - View > Panels > Python console
-   - Check for error messages
+2. **FreeCAD 主控台**
+   - 檢視 > 面板 > Python 主控台
+   - 檢查錯誤訊息
 
 3. **GitHub Issues**
-   - [Report bugs](https://github.com/neka-nat/freecad-mcp/issues)
-   - Search existing issues
+   - [回報錯誤](https://github.com/KCTW/freecad-mcp/issues)
+   - 搜尋現有問題
 
-4. **FreeCAD Forum**
-   - [FreeCAD Forum](https://forum.freecad.org/)
-   - Ask FreeCAD-specific questions
+4. **FreeCAD 論壇**
+   - [FreeCAD 論壇](https://forum.freecad.org/)
+   - 詢問 FreeCAD 相關問題
 
 ---
 
-## Example Projects
+## 範例專案
 
-### Project 1: Simple Flange
+### 專案一：簡單法蘭
 
 ```
 1. "Create a cylinder 100mm diameter, 20mm thick"
@@ -585,9 +585,9 @@ Assembly
 3. "Add 5mm fillet to outer edges"
 ```
 
-**Time:** ~2 minutes
+**時間：** 約 2 分鐘
 
-### Project 2: Aircraft Wing
+### 專案二：飛機機翼
 
 ```
 1. "Import NACA 2412 airfoil profile with 2000mm chord"
@@ -596,9 +596,9 @@ Assembly
 4. "Add 50mm fillet where wings meet fuselage"
 ```
 
-**Time:** ~5 minutes
+**時間：** 約 5 分鐘
 
-### Project 3: Radial Engine
+### 專案三：星型引擎
 
 ```
 1. "Create one cylinder 50mm diameter, 100mm long"
@@ -607,34 +607,33 @@ Assembly
 4. "Fuse all cylinders and crankcase"
 ```
 
-**Time:** ~3 minutes
+**時間：** 約 3 分鐘
 
 ---
 
-## Next Steps
+## 下一步
 
-### Continue Learning
+### 繼續學習
 
-- **[Corsair Workflow](CORSAIR_MODELING_WORKFLOW.md)** - Complete aircraft project (100+ hours → 40 hours)
-- **[API Reference](API_REFERENCE.md)** - Detailed tool documentation
-- **[Contributing](../CONTRIBUTING.md)** - Help improve FreeCAD MCP
+- **[Corsair 工作流程](CORSAIR_MODELING_WORKFLOW.md)** - 完整飛機專案（100+ 小時 → 40 小時）
+- **[API 參考](API_REFERENCE.md)** - 詳細工具文件
+- **[貢獻](../CONTRIBUTING.md)** - 幫助改進 FreeCAD MCP
 
-### Advanced Topics
+### 進階主題
 
-- Sheet metal design
-- FEM analysis
-- TechDraw documentation
-- Animation
-- Generative design
+- 鈑金設計
+- 有限元素分析（FEM）
+- TechDraw 工程圖
+- 動畫
+- 生成式設計
 
-### Community
+### 社群
 
-- Share your projects
-- Report bugs
-- Suggest features
-- Contribute code
+- 分享您的專案
+- 回報錯誤
+- 建議新功能
+- 貢獻程式碼
 
 ---
 
-**Happy designing with FreeCAD MCP!** 🚀
-
+**祝您使用 FreeCAD MCP 設計愉快！** 🚀

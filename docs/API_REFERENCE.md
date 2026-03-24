@@ -1,34 +1,34 @@
-# API Reference
+# API 參考
 
-Complete reference for all FreeCAD MCP tools.
+FreeCAD MCP 所有工具的完整參考文件。
 
-## Table of Contents
+## 目錄
 
-- [Document Management](#document-management)
-- [Basic Modeling](#basic-modeling)
-- [Sketch Workflow](#sketch-workflow)
-- [Boolean Operations](#boolean-operations)
-- [Advanced Modeling](#advanced-modeling)
-- [Transformations & Patterns](#transformations--patterns)
-- [Reference Geometry](#reference-geometry)
-- [Assembly Operations](#assembly-operations)
-- [Visual Feedback](#visual-feedback)
+- [文件管理](#文件管理)
+- [基本建模](#基本建模)
+- [草圖工作流程](#草圖工作流程)
+- [布林運算](#布林運算)
+- [進階建模](#進階建模)
+- [變換與陣列](#變換與陣列)
+- [參考幾何](#參考幾何)
+- [組裝操作](#組裝操作)
+- [視覺回饋](#視覺回饋)
 
 ---
 
-## Document Management
+## 文件管理
 
 ### `create_document`
 
-Create a new FreeCAD document.
+建立新的 FreeCAD 文件。
 
-**Parameters:**
-- `name` (str): Document name
+**參數：**
+- `name` (str)：文件名稱
 
-**Returns:**
-- Success/error message
+**回傳：**
+- 成功/錯誤訊息
 
-**Example:**
+**範例：**
 ```json
 {
   "name": "MyProject"
@@ -39,15 +39,15 @@ Create a new FreeCAD document.
 
 ### `get_objects`
 
-List all objects in a document.
+列出文件中的所有物件。
 
-**Parameters:**
-- `doc_name` (str): Document name
+**參數：**
+- `doc_name` (str)：文件名稱
 
-**Returns:**
-- List of objects with properties
+**回傳：**
+- 包含屬性的物件清單
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject"
@@ -58,16 +58,16 @@ List all objects in a document.
 
 ### `get_object`
 
-Get detailed information about a specific object.
+取得特定物件的詳細資訊。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `obj_name` (str): Object name
+**參數：**
+- `doc_name` (str)：文件名稱
+- `obj_name` (str)：物件名稱
 
-**Returns:**
-- Object properties and details
+**回傳：**
+- 物件屬性與詳細資訊
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -77,31 +77,31 @@ Get detailed information about a specific object.
 
 ---
 
-## Basic Modeling
+## 基本建模
 
 ### `create_object`
 
-Create a parametric object in FreeCAD.
+在 FreeCAD 中建立參數化物件。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `obj_type` (str): Object type (e.g., "Part::Box", "Part::Cylinder")
-- `obj_name` (str): Object name
-- `obj_properties` (dict, optional): Object properties
-- `analysis_name` (str, optional): FEM analysis name if applicable
+**參數：**
+- `doc_name` (str)：文件名稱
+- `obj_type` (str)：物件類型（例如 "Part::Box"、"Part::Cylinder"）
+- `obj_name` (str)：物件名稱
+- `obj_properties` (dict，選填)：物件屬性
+- `analysis_name` (str，選填)：FEM 分析名稱（如適用）
 
-**Supported Types:**
-- `Part::Box` - Rectangular box
-- `Part::Cylinder` - Cylinder
-- `Part::Sphere` - Sphere
-- `Part::Cone` - Cone
-- `Part::Torus` - Torus
-- `Draft::Circle` - 2D circle
-- `PartDesign::Body` - Part Design body
-- `Fem::AnalysisPython` - FEM analysis
-- And many more...
+**支援的類型：**
+- `Part::Box` - 長方體
+- `Part::Cylinder` - 圓柱
+- `Part::Sphere` - 球體
+- `Part::Cone` - 圓錐
+- `Part::Torus` - 圓環
+- `Draft::Circle` - 2D 圓形
+- `PartDesign::Body` - Part Design 本體
+- `Fem::AnalysisPython` - FEM 分析
+- 以及更多...
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -121,14 +121,14 @@ Create a parametric object in FreeCAD.
 
 ### `edit_object`
 
-Modify properties of an existing object.
+修改現有物件的屬性。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `obj_name` (str): Object name
-- `obj_properties` (dict): Properties to modify
+**參數：**
+- `doc_name` (str)：文件名稱
+- `obj_name` (str)：物件名稱
+- `obj_properties` (dict)：要修改的屬性
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -144,13 +144,13 @@ Modify properties of an existing object.
 
 ### `delete_object`
 
-Delete an object from the document.
+從文件中刪除物件。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `obj_name` (str): Object name
+**參數：**
+- `doc_name` (str)：文件名稱
+- `obj_name` (str)：物件名稱
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -162,12 +162,12 @@ Delete an object from the document.
 
 ### `execute_code`
 
-Execute arbitrary Python code in FreeCAD.
+在 FreeCAD 中執行任意 Python 程式碼。
 
-**Parameters:**
-- `code` (str): Python code to execute
+**參數：**
+- `code` (str)：要執行的 Python 程式碼
 
-**Example:**
+**範例：**
 ```json
 {
   "code": "import FreeCAD\nFreeCAD.Console.PrintMessage('Hello from Claude!')"
@@ -176,19 +176,19 @@ Execute arbitrary Python code in FreeCAD.
 
 ---
 
-## Sketch Workflow
+## 草圖工作流程
 
 ### `create_datum_plane_tool`
 
-Create a reference plane for sketching.
+建立用於繪製草圖的參考平面。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `plane_name` (str): Plane name
-- `alignment` (str): "xy", "xz", or "yz"
-- `offset` (float): Offset from origin
+**參數：**
+- `doc_name` (str)：文件名稱
+- `plane_name` (str)：平面名稱
+- `alignment` (str)："xy"、"xz" 或 "yz"
+- `offset` (float)：與原點的偏移量
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -202,13 +202,13 @@ Create a reference plane for sketching.
 
 ### `create_sketch_on_plane_tool`
 
-Create a sketch attached to a datum plane.
+建立附加至基準平面的草圖。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `plane_name` (str): Datum plane name
+**參數：**
+- `doc_name` (str)：文件名稱
+- `plane_name` (str)：基準平面名稱
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -216,39 +216,39 @@ Create a sketch attached to a datum plane.
 }
 ```
 
-Creates: `base_plane_sketch`
+建立：`base_plane_sketch`
 
 ---
 
 ### `add_contour_to_sketch_tool`
 
-Add geometric elements to a sketch.
+在草圖中加入幾何元素。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `sketch_name` (str): Sketch name
-- `geometry_elements` (list): List of geometry elements
-- `constraints` (list, optional): List of constraints
-- `fix_first_point_to_origin` (bool): Fix first point to origin
+**參數：**
+- `doc_name` (str)：文件名稱
+- `sketch_name` (str)：草圖名稱
+- `geometry_elements` (list)：幾何元素清單
+- `constraints` (list，選填)：約束清單
+- `fix_first_point_to_origin` (bool)：將第一個點固定在原點
 
-**Geometry Types:**
-- `point`: `{"type": "point", "x": 0, "y": 0}`
-- `line`: `{"type": "line", "start": {"x": 0, "y": 0}, "end": {"x": 100, "y": 0}}`
-- `arc`: `{"type": "arc", "center": {"x": 0, "y": 0}, "radius": 50, "start_angle": 0, "end_angle": 90}`
-- `circle`: `{"type": "circle", "center": {"x": 0, "y": 0}, "radius": 25}`
-- `bspline`: `{"type": "bspline", "points": [...], "degree": 3, "closed": false}`
-- `ellipse`: `{"type": "ellipse", "center": {"x": 0, "y": 0}, "major_radius": 50, "minor_radius": 25, "angle": 0}`
+**幾何類型：**
+- `point`：`{"type": "point", "x": 0, "y": 0}`
+- `line`：`{"type": "line", "start": {"x": 0, "y": 0}, "end": {"x": 100, "y": 0}}`
+- `arc`：`{"type": "arc", "center": {"x": 0, "y": 0}, "radius": 50, "start_angle": 0, "end_angle": 90}`
+- `circle`：`{"type": "circle", "center": {"x": 0, "y": 0}, "radius": 25}`
+- `bspline`：`{"type": "bspline", "points": [...], "degree": 3, "closed": false}`
+- `ellipse`：`{"type": "ellipse", "center": {"x": 0, "y": 0}, "major_radius": 50, "minor_radius": 25, "angle": 0}`
 
-**Constraint Types:**
-- `coincident`: `{"type": "coincident", "geo1": 0, "point1": 2, "geo2": 1, "point2": 1}`
-- `tangent`: `{"type": "tangent", "geo1": 0, "geo2": 1}`
-- `distance`: `{"type": "distance", "geo1": 0, "point1": 1, "geo2": 0, "point2": 2, "value": 100}`
-- `horizontal`: `{"type": "horizontal", "geo": 0}`
-- `vertical`: `{"type": "vertical", "geo": 0}`
-- `angle`: `{"type": "angle", "geo1": 0, "geo2": 1, "value": 90}`
-- `fix`: `{"type": "fix", "geo": 0, "point": 1}`
+**約束類型：**
+- `coincident`：`{"type": "coincident", "geo1": 0, "point1": 2, "geo2": 1, "point2": 1}`
+- `tangent`：`{"type": "tangent", "geo1": 0, "geo2": 1}`
+- `distance`：`{"type": "distance", "geo1": 0, "point1": 1, "geo2": 0, "point2": 2, "value": 100}`
+- `horizontal`：`{"type": "horizontal", "geo": 0}`
+- `vertical`：`{"type": "vertical", "geo": 0}`
+- `angle`：`{"type": "angle", "geo1": 0, "geo2": 1, "value": 90}`
+- `fix`：`{"type": "fix", "geo": 0, "point": 1}`
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -270,16 +270,16 @@ Add geometric elements to a sketch.
 
 ### `extrude_sketch_bidirectional_tool`
 
-Extrude a sketch to create a 3D solid.
+擠出草圖以建立 3D 實體。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `sketch_name` (str): Sketch name
-- `length_forward` (float): Forward extrusion length
-- `length_backward` (float): Backward extrusion length
-- `use_midplane` (bool): Symmetric extrusion
+**參數：**
+- `doc_name` (str)：文件名稱
+- `sketch_name` (str)：草圖名稱
+- `length_forward` (float)：向前擠出長度
+- `length_backward` (float)：向後擠出長度
+- `use_midplane` (bool)：對稱擠出
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -290,23 +290,23 @@ Extrude a sketch to create a 3D solid.
 }
 ```
 
-Creates: `base_plane_solid`
+建立：`base_plane_solid`
 
 ---
 
-## Boolean Operations
+## 布林運算
 
 ### `boolean_union_tool`
 
-Fuse multiple solids into one.
+將多個實體融合為一個。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `base_object_name` (str): Base object
-- `tool_object_names` (list): Objects to fuse
-- `result_name` (str, optional): Result name
+**參數：**
+- `doc_name` (str)：文件名稱
+- `base_object_name` (str)：基礎物件
+- `tool_object_names` (list)：要融合的物件
+- `result_name` (str，選填)：結果名稱
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -320,15 +320,15 @@ Fuse multiple solids into one.
 
 ### `boolean_cut_tool`
 
-Subtract one solid from another.
+從一個實體中減去另一個。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `base_object_name` (str): Base object
-- `tool_object_name` (str): Object to subtract
-- `result_name` (str, optional): Result name
+**參數：**
+- `doc_name` (str)：文件名稱
+- `base_object_name` (str)：基礎物件
+- `tool_object_name` (str)：要減去的物件
+- `result_name` (str，選填)：結果名稱
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -342,15 +342,15 @@ Subtract one solid from another.
 
 ### `boolean_intersection_tool`
 
-Keep only common volume between two solids.
+僅保留兩個實體之間的共同體積。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `object1_name` (str): First object
-- `object2_name` (str): Second object
-- `result_name` (str, optional): Result name
+**參數：**
+- `doc_name` (str)：文件名稱
+- `object1_name` (str)：第一個物件
+- `object2_name` (str)：第二個物件
+- `result_name` (str，選填)：結果名稱
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -362,20 +362,20 @@ Keep only common volume between two solids.
 
 ---
 
-## Advanced Modeling
+## 進階建模
 
 ### `create_loft_tool`
 
-Create a loft between multiple profiles.
+在多個輪廓之間建立放樣。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `sketch_names` (list): List of sketch names (profiles)
-- `result_name` (str): Result name
-- `solid` (bool): Create solid (default: True)
-- `ruled` (bool): Ruled surface (default: False)
+**參數：**
+- `doc_name` (str)：文件名稱
+- `sketch_names` (list)：草圖名稱清單（輪廓）
+- `result_name` (str)：結果名稱
+- `solid` (bool)：建立實體（預設：True）
+- `ruled` (bool)：直紋曲面（預設：False）
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -390,16 +390,16 @@ Create a loft between multiple profiles.
 
 ### `create_revolve_tool`
 
-Revolve a profile around an axis.
+將輪廓繞軸旋轉。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `sketch_name` (str): Profile sketch name
-- `axis` (dict): Axis definition
-- `angle` (float): Rotation angle (default: 360)
-- `result_name` (str, optional): Result name
+**參數：**
+- `doc_name` (str)：文件名稱
+- `sketch_name` (str)：輪廓草圖名稱
+- `axis` (dict)：軸定義
+- `angle` (float)：旋轉角度（預設：360）
+- `result_name` (str，選填)：結果名稱
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -417,15 +417,15 @@ Revolve a profile around an axis.
 
 ### `create_sweep_tool`
 
-Sweep a profile along a path.
+沿路徑掃掠輪廓。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `profile_sketch` (str): Profile sketch name
-- `path_sketch` (str): Path sketch name
-- `result_name` (str): Result name
+**參數：**
+- `doc_name` (str)：文件名稱
+- `profile_sketch` (str)：輪廓草圖名稱
+- `path_sketch` (str)：路徑草圖名稱
+- `result_name` (str)：結果名稱
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -439,16 +439,16 @@ Sweep a profile along a path.
 
 ### `add_fillet_tool`
 
-Add rounded edges (fillets) to an object.
+在物件上加入圓角（圓滑邊緣）。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `object_name` (str): Object name
-- `edges` (list): List of edge names
-- `radius` (float): Fillet radius
-- `result_name` (str, optional): Result name
+**參數：**
+- `doc_name` (str)：文件名稱
+- `object_name` (str)：物件名稱
+- `edges` (list)：邊緣名稱清單
+- `radius` (float)：圓角半徑
+- `result_name` (str，選填)：結果名稱
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -463,16 +463,16 @@ Add rounded edges (fillets) to an object.
 
 ### `add_chamfer_tool`
 
-Add beveled edges (chamfers) to an object.
+在物件上加入倒角（斜切邊緣）。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `object_name` (str): Object name
-- `edges` (list): List of edge names
-- `distance` (float): Chamfer distance
-- `result_name` (str, optional): Result name
+**參數：**
+- `doc_name` (str)：文件名稱
+- `object_name` (str)：物件名稱
+- `edges` (list)：邊緣名稱清單
+- `distance` (float)：倒角距離
+- `result_name` (str，選填)：結果名稱
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -487,16 +487,16 @@ Add beveled edges (chamfers) to an object.
 
 ### `shell_object_tool`
 
-Create a hollow shell from a solid.
+從實體建立薄殼。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `object_name` (str): Object name
-- `thickness` (float): Wall thickness
-- `faces_to_remove` (list, optional): Faces to remove (opens the shell)
-- `result_name` (str, optional): Result name
+**參數：**
+- `doc_name` (str)：文件名稱
+- `object_name` (str)：物件名稱
+- `thickness` (float)：壁厚
+- `faces_to_remove` (list，選填)：要移除的面（開啟薄殼）
+- `result_name` (str，選填)：結果名稱
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -509,20 +509,20 @@ Create a hollow shell from a solid.
 
 ---
 
-## Transformations & Patterns
+## 變換與陣列
 
 ### `transform_object_tool`
 
-Transform object with translation and/or rotation.
+使用平移和/或旋轉變換物件。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `obj_name` (str): Object name
-- `position` (dict, optional): Position {"x": 0, "y": 0, "z": 0}
-- `rotation` (dict, optional): Rotation {"axis": {"x": 0, "y": 0, "z": 1}, "angle": 0}
-- `relative` (bool): Relative transformation
+**參數：**
+- `doc_name` (str)：文件名稱
+- `obj_name` (str)：物件名稱
+- `position` (dict，選填)：位置 {"x": 0, "y": 0, "z": 0}
+- `rotation` (dict，選填)：旋轉 {"axis": {"x": 0, "y": 0, "z": 1}, "angle": 0}
+- `relative` (bool)：相對變換
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -537,16 +537,16 @@ Transform object with translation and/or rotation.
 
 ### `mirror_object_tool`
 
-Mirror object across a plane.
+沿平面鏡像物件。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `source_obj` (str): Object to mirror
-- `mirror_plane` (dict): Plane definition
-- `result_name` (str, optional): Result name
-- `merge` (bool): Merge with original
+**參數：**
+- `doc_name` (str)：文件名稱
+- `source_obj` (str)：要鏡像的物件
+- `mirror_plane` (dict)：平面定義
+- `result_name` (str，選填)：結果名稱
+- `merge` (bool)：與原始物件合併
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -564,17 +564,17 @@ Mirror object across a plane.
 
 ### `circular_pattern_tool`
 
-Create circular pattern (polar array).
+建立環形陣列（極座標排列）。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `object_name` (str): Object to pattern
-- `axis` (dict): Rotation axis
-- `count` (int): Number of instances
-- `angle` (float): Total angle
-- `result_name` (str, optional): Result name
+**參數：**
+- `doc_name` (str)：文件名稱
+- `object_name` (str)：要陣列的物件
+- `axis` (dict)：旋轉軸
+- `count` (int)：實例數量
+- `angle` (float)：總角度
+- `result_name` (str，選填)：結果名稱
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -593,17 +593,17 @@ Create circular pattern (polar array).
 
 ### `linear_pattern_tool`
 
-Create linear pattern (rectangular array).
+建立線性陣列（矩形排列）。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `object_name` (str): Object to pattern
-- `direction` (dict): Pattern direction
-- `spacing` (float): Distance between instances
-- `count` (int): Number of instances
-- `result_name` (str, optional): Result name
+**參數：**
+- `doc_name` (str)：文件名稱
+- `object_name` (str)：要陣列的物件
+- `direction` (dict)：陣列方向
+- `spacing` (float)：實例之間的距離
+- `count` (int)：實例數量
+- `result_name` (str，選填)：結果名稱
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -617,23 +617,23 @@ Create linear pattern (rectangular array).
 
 ---
 
-## Reference Geometry
+## 參考幾何
 
 ### `create_reference_plane_tool`
 
-Create a datum plane with various definition modes.
+使用各種定義模式建立基準平面。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `plane_name` (str): Plane name
-- `definition` (dict): Plane definition
+**參數：**
+- `doc_name` (str)：文件名稱
+- `plane_name` (str)：平面名稱
+- `definition` (dict)：平面定義
 
-**Definition Modes:**
-- Offset: `{"mode": "offset", "plane": "XY", "offset": 50}`
-- 3 Points: `{"mode": "3points", "p1": {...}, "p2": {...}, "p3": {...}}`
-- Point-Normal: `{"mode": "point_normal", "point": {...}, "normal": {...}}`
+**定義模式：**
+- 偏移：`{"mode": "offset", "plane": "XY", "offset": 50}`
+- 三點：`{"mode": "3points", "p1": {...}, "p2": {...}, "p3": {...}}`
+- 點-法線：`{"mode": "point_normal", "point": {...}, "normal": {...}}`
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -650,16 +650,16 @@ Create a datum plane with various definition modes.
 
 ### `import_airfoil_profile_tool`
 
-Import NACA airfoil profile.
+匯入 NACA 翼型輪廓。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `sketch_name` (str): Sketch name
-- `naca_code` (str): NACA code (e.g., "2412", "0012")
-- `chord_length` (float): Chord length in mm
-- `position` (dict, optional): Position
+**參數：**
+- `doc_name` (str)：文件名稱
+- `sketch_name` (str)：草圖名稱
+- `naca_code` (str)：NACA 代碼（例如 "2412"、"0012"）
+- `chord_length` (float)：弦長（單位 mm）
+- `position` (dict，選填)：位置
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -674,15 +674,15 @@ Import NACA airfoil profile.
 
 ### `import_dxf_tool`
 
-Import DXF file into a sketch.
+將 DXF 檔案匯入草圖。
 
-**Parameters:**
-- `doc_name` (str): Document name
-- `file_path` (str): DXF file path
-- `sketch_name` (str): Sketch name
-- `scale` (float): Scale factor
+**參數：**
+- `doc_name` (str)：文件名稱
+- `file_path` (str)：DXF 檔案路徑
+- `sketch_name` (str)：草圖名稱
+- `scale` (float)：縮放比例
 
-**Example:**
+**範例：**
 ```json
 {
   "doc_name": "MyProject",
@@ -694,11 +694,11 @@ Import DXF file into a sketch.
 
 ---
 
-## Assembly Operations
+## 組裝操作
 
-See [ASSEMBLY.md](ASSEMBLY.md) for complete assembly documentation.
+完整的組裝文件請參閱 [ASSEMBLY.md](ASSEMBLY.md)。
 
-### Assembly3 Tools
+### Assembly3 工具
 - `create_assembly3_tool`
 - `add_part_to_assembly3_tool`
 - `add_assembly3_constraint_tool`
@@ -707,7 +707,7 @@ See [ASSEMBLY.md](ASSEMBLY.md) for complete assembly documentation.
 - `delete_assembly3_constraint_tool`
 - `modify_assembly3_constraint_tool`
 
-### Assembly4 Tools
+### Assembly4 工具
 - `create_assembly4_tool`
 - `create_lcs_assembly4_tool`
 - `insert_part_assembly4_tool`
@@ -716,7 +716,7 @@ See [ASSEMBLY.md](ASSEMBLY.md) for complete assembly documentation.
 - `delete_lcs_assembly4_tool`
 - `modify_lcs_assembly4_tool`
 
-### Common Tools
+### 通用工具
 - `list_assembly_parts_tool`
 - `export_assembly_tool`
 - `calculate_assembly_mass_tool`
@@ -725,16 +725,16 @@ See [ASSEMBLY.md](ASSEMBLY.md) for complete assembly documentation.
 
 ---
 
-## Visual Feedback
+## 視覺回饋
 
 ### `get_view`
 
-Get screenshot from specific view.
+從特定視角取得截圖。
 
-**Parameters:**
-- `view_name` (str): "Isometric", "Front", "Top", "Right", "Back", "Left", "Bottom", "Dimetric", "Trimetric"
+**參數：**
+- `view_name` (str)："Isometric"、"Front"、"Top"、"Right"、"Back"、"Left"、"Bottom"、"Dimetric"、"Trimetric"
 
-**Example:**
+**範例：**
 ```json
 {
   "view_name": "Isometric"
@@ -745,12 +745,12 @@ Get screenshot from specific view.
 
 ### `insert_part_from_library`
 
-Insert part from FreeCAD parts library.
+從 FreeCAD 零件庫插入零件。
 
-**Parameters:**
-- `relative_path` (str): Relative path in library
+**參數：**
+- `relative_path` (str)：零件庫中的相對路徑
 
-**Example:**
+**範例：**
 ```json
 {
   "relative_path": "Fasteners/Bolts/ISO4017_M8x40.FCStd"
@@ -761,18 +761,18 @@ Insert part from FreeCAD parts library.
 
 ### `get_parts_list`
 
-List available parts in library.
+列出零件庫中可用的零件。
 
-**Returns:**
-- List of available parts
+**回傳：**
+- 可用零件清單
 
 ---
 
-## Error Handling
+## 錯誤處理
 
-All tools return consistent response format:
+所有工具回傳一致的回應格式：
 
-**Success:**
+**成功：**
 ```json
 {
   "success": true,
@@ -781,7 +781,7 @@ All tools return consistent response format:
 }
 ```
 
-**Error:**
+**錯誤：**
 ```json
 {
   "success": false,
@@ -791,18 +791,17 @@ All tools return consistent response format:
 
 ---
 
-## Best Practices
+## 最佳實踐
 
-1. **Always check object names** with `get_objects` before referencing
-2. **Use descriptive names** for created objects
-3. **Verify coordinates** with screenshots
-4. **Save incrementally** in FreeCAD
-5. **Test operations** with simple geometries first
+1. **在引用物件前**，務必使用 `get_objects` 確認物件名稱
+2. **使用描述性名稱**為建立的物件命名
+3. **透過截圖**驗證座標
+4. **在 FreeCAD 中**增量儲存
+5. **先使用簡單幾何**測試操作
 
 ---
 
-**See Also:**
-- [User Guide](USER_GUIDE.md) - Feature tutorials
-- [Quick Start](QUICKSTART.md) - Setup guide
-- [Corsair Workflow](CORSAIR_MODELING_WORKFLOW.md) - Real-world example
-
+**另請參閱：**
+- [使用指南](USER_GUIDE.md) - 功能教學
+- [快速入門](QUICKSTART.md) - 設定指南
+- [Corsair 工作流程](CORSAIR_MODELING_WORKFLOW.md) - 實際範例

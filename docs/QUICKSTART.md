@@ -1,41 +1,41 @@
-# Quick Start Guide
+# 快速入門指南
 
-Get started with FreeCAD MCP in 5 minutes!
+5 分鐘內開始使用 FreeCAD MCP！
 
-## Prerequisites
+## 前置需求
 
-- ✅ Python 3.10 or higher
-- ✅ FreeCAD 0.21 or higher installed
-- ✅ Claude Desktop installed
+- Python 3.10 或更高版本
+- FreeCAD 0.21 或更高版本已安裝
+- Claude Desktop 已安裝
 
-## Step 1: Install FreeCAD Addon (2 minutes)
+## 步驟 1：安裝 FreeCAD 附加元件（2 分鐘）
 
-### Locate Your FreeCAD Addon Directory
+### 找到您的 FreeCAD 附加元件目錄
 
-**Windows:**
+**Windows：**
 ```
 %APPDATA%\FreeCAD\Mod\
 ```
-Usually: `C:\Users\YourName\AppData\Roaming\FreeCAD\Mod\`
+通常位於：`C:\Users\YourName\AppData\Roaming\FreeCAD\Mod\`
 
-**Mac:**
+**Mac：**
 ```
 ~/Library/Application Support/FreeCAD/Mod/
 ```
 
-**Linux:**
-- Ubuntu: `~/.FreeCAD/Mod/`
-- Ubuntu (snap): `~/snap/freecad/common/Mod/`
-- Debian: `~/.local/share/FreeCAD/Mod`
+**Linux：**
+- Ubuntu：`~/.FreeCAD/Mod/`
+- Ubuntu (snap)：`~/snap/freecad/common/Mod/`
+- Debian：`~/.local/share/FreeCAD/Mod`
 
-### Install the Addon
+### 安裝附加元件
 
 ```bash
-# Clone the repository
-git clone https://github.com/neka-nat/freecad-mcp.git
+# 複製儲存庫
+git clone https://github.com/KCTW/freecad-mcp.git
 cd freecad-mcp
 
-# Copy addon (adjust path for your OS)
+# 複製附加元件（根據您的作業系統調整路徑）
 # Windows
 xcopy /E /I addon\FreeCADMCP "%APPDATA%\FreeCAD\Mod\FreeCADMCP"
 
@@ -43,42 +43,42 @@ xcopy /E /I addon\FreeCADMCP "%APPDATA%\FreeCAD\Mod\FreeCADMCP"
 cp -r addon/FreeCADMCP ~/.FreeCAD/Mod/
 ```
 
-## Step 2: Start FreeCAD Server (30 seconds)
+## 步驟 2：啟動 FreeCAD 伺服器（30 秒）
 
-1. **Launch FreeCAD**
-   
-2. **Select MCP Addon Workbench**
-   - Find "MCP Addon" in the workbench dropdown
-   
-3. **Start RPC Server**
-   - Click "Start RPC Server" button in toolbar
-   - Server starts on port 9875
-   - You should see confirmation message
+1. **啟動 FreeCAD**
+
+2. **選擇 MCP Addon 工作台**
+   - 在工作台下拉選單中找到「MCP Addon」
+
+3. **啟動 RPC 伺服器**
+   - 點擊工具列中的「Start RPC Server」按鈕
+   - 伺服器將在連接埠 9875 上啟動
+   - 您應該會看到確認訊息
 
 ![Start Server](../assets/start_rpc_server.png)
 
-## Step 3: Configure Claude Desktop (1 minute)
+## 步驟 3：設定 Claude Desktop（1 分鐘）
 
-### Find Config File
+### 找到設定檔
 
-**Windows:**
+**Windows：**
 ```
 %APPDATA%\Claude\claude_desktop_config.json
 ```
 
-**Mac:**
+**Mac：**
 ```
 ~/Library/Application Support/Claude/claude_desktop_config.json
 ```
 
-**Linux:**
+**Linux：**
 ```
 ~/.config/Claude/claude_desktop_config.json
 ```
 
-### Add Configuration
+### 新增設定
 
-Open the file and add:
+開啟檔案並新增：
 
 ```json
 {
@@ -91,7 +91,7 @@ Open the file and add:
 }
 ```
 
-**Optional: Text-only mode** (saves tokens, no screenshots):
+**選用：純文字模式**（節省 token，不含截圖）：
 ```json
 {
   "mcpServers": {
@@ -103,51 +103,51 @@ Open the file and add:
 }
 ```
 
-### Restart Claude Desktop
+### 重新啟動 Claude Desktop
 
-Close and reopen Claude Desktop for changes to take effect.
+關閉並重新開啟 Claude Desktop 以使變更生效。
 
-## Step 4: Test It! (1 minute)
+## 步驟 4：測試一下！（1 分鐘）
 
-Open Claude Desktop and try these commands:
+開啟 Claude Desktop 並嘗試以下指令：
 
-### Test 1: Simple Box
+### 測試 1：簡單方塊
 ```
 Create a box 100mm x 50mm x 30mm
 ```
 
-**Expected:** Box created in FreeCAD with screenshot
+**預期結果：** 在 FreeCAD 中建立方塊並顯示截圖
 
-### Test 2: Advanced Shape
+### 測試 2：進階形狀
 ```
-Create a cylinder with radius 20mm and height 50mm, 
+Create a cylinder with radius 20mm and height 50mm,
 then add a fillet of 5mm to the top edge
 ```
 
-**Expected:** Cylinder with rounded top edge
+**預期結果：** 帶有圓角頂邊的圓柱體
 
-### Test 3: Symmetric Part
+### 測試 3：對稱零件
 ```
 Create a cube 50mm on each side, then mirror it across the YZ plane
 ```
 
-**Expected:** Two cubes side by side
+**預期結果：** 兩個並排的立方體
 
-## 🎉 Success!
+## 成功！
 
-You're now ready to use FreeCAD with Claude!
+您現在已準備好使用 FreeCAD 搭配 Claude！
 
-## Next Steps
+## 下一步
 
-### Learn More
+### 深入學習
 
-- **[User Guide](USER_GUIDE.md)** - Complete feature documentation
-- **[Corsair Workflow](CORSAIR_MODELING_WORKFLOW.md)** - Advanced aircraft modeling
-- **[API Reference](API_REFERENCE.md)** - All available tools
+- **[使用者指南](USER_GUIDE.md)** - 完整功能文件
+- **[Corsair 工作流程](CORSAIR_MODELING_WORKFLOW.md)** - 進階飛機建模
+- **[API 參考](API_REFERENCE.md)** - 所有可用工具
 
-### Try These Examples
+### 嘗試這些範例
 
-#### Example 1: Design a Flange
+#### 範例 1：設計法蘭
 ```
 Create a flange for a pipe:
 1. Create a cylinder 100mm diameter, 20mm thick
@@ -155,7 +155,7 @@ Create a flange for a pipe:
 3. Each hole is 10mm diameter
 ```
 
-#### Example 2: Aircraft Wing Profile
+#### 範例 2：飛機機翼剖面
 ```
 Create an aircraft wing:
 1. Import NACA 2412 airfoil profile with 2000mm chord length
@@ -163,56 +163,56 @@ Create an aircraft wing:
 3. Mirror it to create both wings
 ```
 
-#### Example 3: Radial Engine
+#### 範例 3：星型引擎
 ```
 Create a radial engine cylinder arrangement:
 1. Create one cylinder 50mm diameter, 100mm long
 2. Use circular pattern to create 18 cylinders around an axis
 ```
 
-## Troubleshooting
+## 疑難排解
 
-### Problem: Claude doesn't see FreeCAD tools
+### 問題：Claude 看不到 FreeCAD 工具
 
-**Solution:**
-1. Check FreeCAD RPC server is running (green indicator)
-2. Restart Claude Desktop
-3. Verify config file syntax is correct
+**解決方法：**
+1. 檢查 FreeCAD RPC 伺服器是否正在執行（綠色指示燈）
+2. 重新啟動 Claude Desktop
+3. 確認設定檔語法正確
 
-### Problem: "Connection refused"
+### 問題：「Connection refused」
 
-**Solution:**
-1. Make sure FreeCAD is running
-2. Click "Start RPC Server" in FreeCAD
-3. Check firewall allows localhost:9875
+**解決方法：**
+1. 確認 FreeCAD 正在執行
+2. 在 FreeCAD 中點擊「Start RPC Server」
+3. 檢查防火牆是否允許 localhost:9875
 
-### Problem: No screenshot in responses
+### 問題：回應中沒有截圖
 
-**Solution:**
-1. Switch to 3D view in FreeCAD (not TechDraw/Spreadsheet)
-2. Or use `--only-text-feedback` flag if screenshots not needed
+**解決方法：**
+1. 在 FreeCAD 中切換到 3D 視圖（不是 TechDraw/Spreadsheet）
+2. 或者如果不需要截圖，使用 `--only-text-feedback` 參數
 
-### Problem: Tools not executing
+### 問題：工具無法執行
 
-**Solution:**
-1. Check FreeCAD console for error messages
-2. Try executing code manually in FreeCAD Python console
-3. Verify FreeCAD version is 0.21 or higher
+**解決方法：**
+1. 檢查 FreeCAD 主控台的錯誤訊息
+2. 嘗試在 FreeCAD Python 主控台中手動執行程式碼
+3. 確認 FreeCAD 版本為 0.21 或更高
 
-## Getting Help
+## 取得協助
 
-- **GitHub Issues**: [Report bugs or request features](https://github.com/neka-nat/freecad-mcp/issues)
-- **Documentation**: Check [User Guide](USER_GUIDE.md)
-- **FreeCAD Forum**: [Ask FreeCAD questions](https://forum.freecad.org/)
+- **GitHub Issues**：[回報錯誤或請求功能](https://github.com/KCTW/freecad-mcp/issues)
+- **文件**：查看[使用者指南](USER_GUIDE.md)
+- **FreeCAD 論壇**：[詢問 FreeCAD 相關問題](https://forum.freecad.org/)
 
-## Tips & Tricks
+## 秘訣與技巧
 
-### 💡 Be Specific
-Instead of: "Make a part"
-Try: "Create a rectangular part 100mm x 50mm x 20mm"
+### 描述要具體
+與其說：「Make a part」
+不如說：「Create a rectangular part 100mm x 50mm x 20mm」
 
-### 💡 Use Step-by-Step
-For complex parts, describe operations one by one:
+### 使用逐步描述
+對於複雜零件，逐一描述操作：
 ```
 1. Create a cylinder 50mm diameter, 100mm height
 2. Add a 10mm fillet to the top edge
@@ -220,34 +220,33 @@ For complex parts, describe operations one by one:
 4. Move the copy 100mm in the Y direction
 ```
 
-### 💡 Reference Existing Objects
+### 引用現有物件
 ```
 "Add a hole to the top face of Box001"
 "Mirror Cylinder001 across the YZ plane"
 ```
 
-### 💡 Save Your Work
-FreeCAD doesn't auto-save. In FreeCAD:
+### 儲存您的工作
+FreeCAD 不會自動儲存。在 FreeCAD 中：
 ```
 File > Save As > choose location
 ```
 
-### 💡 Visualize Results
-Ask for specific views:
+### 視覺化結果
+要求特定視圖：
 ```
 "Show me the top view"
 "Show me an isometric view"
 ```
 
-## What's Next?
+## 接下來呢？
 
-Now that you have FreeCAD MCP working, explore:
+現在您已經讓 FreeCAD MCP 運作起來了，可以探索：
 
-1. **[Complete User Guide](USER_GUIDE.md)** - All 52 tools explained
-2. **[Corsair Workflow](CORSAIR_MODELING_WORKFLOW.md)** - Real-world aircraft project
-3. **[Contributing](../CONTRIBUTING.md)** - Help improve FreeCAD MCP
+1. **[完整使用者指南](USER_GUIDE.md)** - 所有 52 個工具的說明
+2. **[Corsair 工作流程](CORSAIR_MODELING_WORKFLOW.md)** - 實際飛機專案
+3. **[貢獻指南](../CONTRIBUTING.md)** - 協助改善 FreeCAD MCP
 
 ---
 
-**Ready to design? Start creating with Claude and FreeCAD!** 🚀
-
+**準備好設計了嗎？開始使用 Claude 和 FreeCAD 創作吧！**

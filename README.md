@@ -2,13 +2,7 @@
 
 透過 MCP（Model Context Protocol）從 Claude Desktop 控制 FreeCAD。
 
-> Fork 自 [neka-nat/freecad-mcp](https://github.com/neka-nat/freecad-mcp)
-
-## 改進項目
-
-- **截圖回傳檔案路徑**：不再回傳 base64 圖片，避免超過 token 上限
-- **自動清理截圖**：只保留最新 5 張
-- **v3.0 進階功能**：Sketch 工作流、布林運算、Assembly 裝配、進階建模
+> Fork 自 [neka-nat/freecad-mcp](https://github.com/neka-nat/freecad-mcp)，加入截圖優化與 v3.0 進階功能。
 
 ## 安裝
 
@@ -42,6 +36,12 @@ cp -r addon/FreeCADMCP ~/.FreeCAD/Mod/   # 複製到 FreeCAD Addon 目錄
 ```bash
 ssh -L 9875:localhost:9875 遠端機器
 ```
+
+## 與原版的差異
+
+- 截圖回傳**檔案路徑**而非 base64，避免超過 token 上限
+- 自動清理截圖，只保留最新 5 張
+- 整合 v3.0 進階功能（Sketch、布林運算、Assembly）
 
 ## 文件
 
