@@ -190,7 +190,10 @@ async def server_lifespan(server: FastMCP) -> AsyncIterator[Dict[str, Any]]:
         global _freecad_connection
         if _freecad_connection:
             logger.info("Disconnecting from FreeCAD on shutdown")
-            _freecad_connection.disconnect()
+            try:
+                _freecad_connection.disconnect()
+            except AttributeError:
+                pass  # disconnect() not available in all versions
             _freecad_connection = None
         logger.info("FreeCADMCP server shut down")
 
